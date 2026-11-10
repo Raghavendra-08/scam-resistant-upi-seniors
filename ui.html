@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafePay Senior - Secure UPI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #17365d;
+        }
+
+        header {
+            background: #17365d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 10px;
+        }
+
+        .safety {
+            background: #dff5e5;
+            color: #176536;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin: 20px 0;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        button {
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            background: #2469a6;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #174d7c;
+        }
+
+        .request {
+            background: white;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .request button {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .navigation button {
+            flex: 1;
+            font-size: 15px;
+            padding: 14px 5px;
+        }
+
+        .content {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            font-size: 17px;
+        }
+
+        .warning {
+            background: #ffe5e5;
+            color: #a40000;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #dff5e5;
+            color: #176536;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .cancel {
+            background: #b42318;
+        }
+
+        .secondary {
+            background: #657386;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #657386;
+        }
+
+        @media(max-width: 550px) {
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation button {
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    ₹ SafePay Senior
+    <div style="font-size:14px;font-weight:normal;">
+        Scam-Resistant UPI Application
+    </div>
+</header>
+
+<div class="container">
+
+    <section class="welcome">
+        <h1>Hello, Raghu 👋</h1>
+        <p>Welcome to your safe digital payment application.</p>
+    </section>
+
+    <section class="safety">
+        🛡 Safety Reminder:
+        You never need to enter your UPI PIN to receive money.
+    </section>
+
+    <div class="navigation">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('activity')">Activity</button>
+        <button onclick="showPage('safety')">Safety Help</button>
+    </div>
+
+    <!-- HOME PAGE -->
+    <section id="home">
+
+        <h2>What would you like to do?</h2>
+
+        <div class="buttons">
+            <button onclick="showPage('pay')">
+                ↗ Pay Money
+                <br><small>Send money safely</small>
+            </button>
+
+            <button onclick="showPage('receive')">
+                ↙ Receive Money
+                <br><small>Receive payments</small>
+            </button>
+        </div>
+
+        <div class="request">
+            <h2>⚠ New Payment Request</h2>
+
+            <p>Sender: Unknown Person</p>
+            <p>Request Type: Collect Request</p>
+            <h3>Amount: ₹2,500</h3>
+
+            <button onclick="showPage('warning')">
+                Review Request
+            </button>
+        </div>
+
+    </section>
+
+    <!-- PAY PAGE -->
+    <section id="pay" class="content hidden">
+
+        <h2>Pay Money</h2>
+
+        <label>Recipient Name</label>
+        <input type="text" id="recipient"
+               placeholder="Enter recipient name">
+
+        <label>Amount (₹)</label>
+        <input type="number" id="amount"
+               placeholder="Enter amount" min="1">
+
+        <div class="success">
+            ✓ Check the recipient name and amount before paying.
+        </div>
+
+        <button onclick="reviewPayment()">
+            Review Payment
+        </button>
+
+        <button class="secondary"
+                onclick="showPage('home')">
+            Back
+        </button>
+
+    </section>
+
+    <!-- RECEIVE PAGE -->
+    <section id="receive" class="content hidden">
+
+        <h2>Receive Money</h2>
+
+        <div class="success">
+            ✓ You do not need to enter your UPI PIN to receive money.
+        </div>
+
+        <p>Example UPI ID:</p>
+        <h3>lakshmi@demo</h3>
+
+        <p style="margin-top:15px;">
+            Share your UPI ID with the sender.
+            Never approve an unexpected collect request
+            to receive money.
+        </p>
+
+        <button onclick="showPage('home')">
+            Done
+        </button>
+
+    </section>
+
+    <!-- SCAM WARNING PAGE -->
+    <section id="warning" class="content hidden">
+
+        <h2>🚨 Scam Warning!</h2>
+
+        <div class="warning">
+            WARNING: This is an unknown collect request.
+
+            <br><br>
+
+            Approving this request will SEND ₹2,500
+            from your bank account.
+
+            It will NOT make you receive money.
+        </div>
+
+        <p>Sender: Unknown Person</p>
+        <p>Amount: ₹2,500</p>
+
+        <br>
+
+        <button class="cancel"
+                onclick="declineRequest()">
+            Decline Request
+        </button>
+
+        <button class="secondary"
+                onclick="showPage('home')">
+            Go Back
+        </button>
+
+    </section>
+
+    <!-- PAYMENT REVIEW PAGE -->
+    <section id="review" class="content hidden">
+
+        <h2>Confirm Payment Details</h2>
+
+        <div class="warning">
+            You are sending money from your account.
+            Verify the recipient and amount.
+        </div>
+
+        <p id="reviewName"></p>
+        <h3 id="reviewAmount"></h3>
+
+        <button onclick="confirmPayment()">
+            Confirm Demo Payment
+        </button>
+
+        <button class="secondary"
+                onclick="showPage('pay')">
+            Go Back
+        </button>
+
+    </section>
+
+    <!-- RESULT PAGE -->
+    <section id="result" class="content hidden">
+
+        <h2>Payment Status</h2>
+
+        <div class="success" id="resultMessage"></div>
+
+        <button onclick="showPage('home')">
+            Return Home
+        </button>
+
+    </section>
+
+    <!-- ACTIVITY PAGE -->
+    <section id="activity" class="content hidden">
+
+        <h2>Recent Activity</h2>
+
+        <p>↗ Ravi Stores — ₹450</p>
+        <hr>
+        <br>
+        <p>↙ Meena — ₹1,000 received</p>
+        <hr>
+        <br>
+        <p>⚠ Unknown request — Declined</p>
+
+        <p style="margin-top:15px;">
+            <small>Sample transaction history only.</small>
+        </p>
+
+    </section>
+
+    <!-- SAFETY HELP PAGE -->
+    <section id="safety" class="content hidden">
+
+        <h2>UPI Safety Tips</h2>
+
+        <div class="success">
+            1. Never share your UPI PIN or OTP.
+        </div>
+
+        <div class="success">
+            2. Check the recipient before sending money.
+        </div>
+
+        <div class="success">
+            3. Never rush to approve unknown requests.
+        </div>
+
+        <div class="success">
+            4. Cancel suspicious payment requests.
+        </div>
+
+        <button onclick="showPage('home')">
+            Back to Home
+        </button>
+
+    </section>
+
+</div>
+
+<footer>
+    SafePay Senior | Advanced UI/UX Project
+    <br>
+    Academic Prototype – No Real Transactions
+</footer>
+
+<script>
+
+    function showPage(pageId) {
+
+        const pages = [
+            'home', 'pay', 'receive',
+            'warning', 'review', 'result',
+            'activity', 'safety'
+        ];
+
+        pages.forEach(function(id) {
+            document.getElementById(id)
+                .classList.add('hidden');
+        });
+
+        document.getElementById(pageId)
+            .classList.remove('hidden');
+    }
+
+    function reviewPayment() {
+
+        const name = document
+            .getElementById('recipient').value.trim();
+
+        const amount = Number(document
+            .getElementById('amount').value);
+
+        if (name === '' || !Number.isFinite(amount)
+            || amount <= 0 || amount > 100000) {
+
+            alert('Enter a valid recipient and amount.');
+            return;
+        }
+
+        document.getElementById('reviewName')
+            .innerText = 'Recipient: ' + name;
+
+        document.getElementById('reviewAmount')
+            .innerText = 'Amount: ₹' + amount.toLocaleString('en-IN');
+
+        showPage('review');
+    }
+
+    function confirmPayment() {
+
+        document.getElementById('resultMessage')
+            .innerText =
+            '✓ Demo payment completed successfully. No real money was transferred.';
+
+        showPage('result');
+    }
+
+    function declineRequest() {
+
+        document.getElementById('resultMessage')
+            .innerText =
+            '✓ Suspicious request declined. No money was sent by this demo action.';
+
+        showPage('result');
+    }
+
+</script>
+
+</body>
+</html>
